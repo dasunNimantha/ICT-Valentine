@@ -5,9 +5,9 @@ const authRoutes = require('./routes/auth-routes');
 const profileRoutes = require('./routes/profile-routes');
 const passportSetup = require('./config/passport-setup');
 const adminRoutes = require('./routes/admin-routes');
+const dashboardRoutes = require('./routes/dashboard-routes')
 const register = require('./routes/register');
 const passport = require('passport');
-const {requireAuth} = require('./middleware/authMiddleware');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const cookieParser = require("cookie-parser");
@@ -22,6 +22,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
+app.use('/dashboard',dashboardRoutes);
 app.use('/auth', authRoutes);
 app.use('/profile',profileRoutes);
 app.use('/admin',adminRoutes);
@@ -56,9 +57,7 @@ app.get('/adminLogin',(req,res)=>{
     res.render("admin-login");
 })
 
-app.get('/dashboard',requireAuth,(req,res)=>{
-    res.render("dashboard");
-})
+
 
 app.get("*",function(req,res){
     res.render('404');
