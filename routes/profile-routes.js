@@ -20,9 +20,7 @@ router.get('/',authCheck,(req,res)=>{
 }) 
 
 
-router.get("/home",(req,res)=>{
-    res.render("/")
-})
+
 
 
 module.exports = router;

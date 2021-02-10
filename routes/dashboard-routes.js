@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const User = require('../models/User');
+const cookieParser = require('cookie-parser');
 const {requireAuth} = require('../middleware/authMiddleware');
 
 let registeredCount=0;
@@ -10,7 +11,7 @@ let siteVisitorsCount=0;
             
 router.get('/',requireAuth,function(req,res){
     
-    User.find({},(err,result)=>{
+    User.find({},(err,result)=> {
         let objectCount = result.length;
         registeredCount= objectCount;
         var users = [];
@@ -37,5 +38,40 @@ router.get('/',requireAuth,function(req,res){
     
     
 })
+
+
+router.get('/user/:code',requireAuth,async(req,res)=>{
+   const reqUser = await User.findOne({googleID:req.params.code});
+
+   
+   if(reqUser){
+
+    User.find({matched:'false'},(err,result)=>{
+        let totalUsers = result.length;
+        let suggestCount=0;
+        suggestArray = [];
+        for(var j=0;j<totalUsers;j++){
+            if((result[j].gender!=reqUser.gender) &&(result[j].userEmail !=reqUser.userEmail)){
+                suggestArray[j]=result[j];
+                suggestCount++;
+            }
+        }
+        
+        res.render('app-profile',{reqUser,suggestCount,suggestArray});
+        
+    })
+     
+
+   } else {
+       console.log("User not exists on the database")
+   }
+})
+
+router.get('/match/:code',requireAuth,async(req,res)=>{
+   console.log(req.params.code);
+   res.send("done"); 
+});
+
+
 
 module.exports = router;
