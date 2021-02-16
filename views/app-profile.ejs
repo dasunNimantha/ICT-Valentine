@@ -19,6 +19,10 @@
            
         }
 
+        #addMatchBtn:hover{
+            cursor: default;  
+        }
+
         #profilePhoto{
             border-radius: 50%;
         }
@@ -35,6 +39,10 @@
           overflow-y:auto;
        }
     
+       .dropdown-menu:hover{
+            cursor: pointer;  
+        }
+
 
     </style>
 
@@ -329,8 +337,10 @@
                $.ajax({
                    url:matchedUrl,
                    method:'GET',
-                   
-                  
+                   success:function(response){
+                       console.log(response);
+                       
+                   }
                }) 
             } else {
                 return null;

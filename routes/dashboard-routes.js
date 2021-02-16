@@ -69,7 +69,7 @@ router.get('/user/:code',requireAuth,async(req,res)=>{
 
 router.get('/match/:code',requireAuth,async(req,res)=>{
    console.log(req.params.code);
-   res.send("done"); 
+   res.send("updated user "+req.params.code); 
 });
 
 
