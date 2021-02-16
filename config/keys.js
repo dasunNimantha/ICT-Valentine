@@ -11,6 +11,12 @@ module.exports = {
 
     mongodb:{
         dubURI: "mongodb+srv://dasun123:Malakeliyai32786@cluster0.plgyu.mongodb.net/val-db?retryWrites=true&w=majority"
+    },
+
+
+    jwt:{
+        jwtToken:"HimunThathuwaKethalaHiruwa"
     }
+
 
 };

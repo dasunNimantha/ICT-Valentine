@@ -4,6 +4,7 @@ const Admin = require('../models/Admin');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
 
 router.use(bodyParser.json()) // for parsing application/json
 router.use(bodyParser.urlencoded({ extended: true }))
@@ -11,7 +12,7 @@ router.use(bodyParser.urlencoded({ extended: true }))
 
 const maxAge = 24 * 60 * 60;
 const cerateToken = (id) =>{
-    return jwt.sign({id}, "HimunThathuwaKethalaHiruwa",{
+    return jwt.sign({id},keys.jwt.jwtToken ,{
         expiresIn:maxAge
     });
 }
