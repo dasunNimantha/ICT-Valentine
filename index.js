@@ -67,6 +67,6 @@ app.get("*",function(req,res){
 
 
 const PORT = 5000;
-app.listen(PORT, function() {
+app.listen(process.env.PORT || PORT, function() {
     console.log("server running on port 5000");
 });
